@@ -1,6 +1,6 @@
 # Star-Wars-Social-Network
 
-This repository contains the social network of all characters from the Star Wars movies episode 1-7. The data i have used the 'starwars-episode-N-mentions.json' files from: <br>
+This repository contains the social network of all characters from the Star Wars movies episode 1-7. The data i have used the 'starwars-episode-N-mentions.json' files from: <br> <br>
 @misc{gabasova_star_wars_2016, <br>
   author  = {Evelina Gabasova},<br>
   title   = {{Star Wars social network}},<br>
