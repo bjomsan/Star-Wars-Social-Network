@@ -23,7 +23,7 @@ I have written the program in two different formats. One is with separate python
   colour: Colour in the visualization<br>
   
 # Links
-Links represents connections between characters:<br>
-  source: zero-based index of the character that is one end of the link, the order of nodes is the order in which they are listed in the “nodes” element<br>
-  target: zero-based index of the character that is the the other end of the link.<br>
+Links represents connections between characters: <br>
+  source: zero-based index of the character that is one end of the link, the order of nodes is the order in which they are listed in the “nodes” element. <br>
+  target: zero-based index of the character that is the the other end of the link. <br>
   value: Number of scenes where the “source” and “target” of the link appeared together. Note that the network is undirected. Which character represents the source and the target is arbitrary. 
