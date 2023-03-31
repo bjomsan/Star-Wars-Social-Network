@@ -1,13 +1,13 @@
 # Star-Wars-Social-Network
 
 This repository contains the social network of all characters from the Star Wars movies episode 1-7. The data i have used has been extracted from:
-@misc{gabasova_star_wars_2016,
-  author  = {Evelina Gabasova},
-  title   = {{Star Wars social network}},
-  year    = 2016,
-  url     = {https://doi.org/10.5281/zenodo.1411479},
-  doi     = {10.5281/zenodo.1411479}
- }
+@misc{gabasova_star_wars_2016, <br>
+  author  = {Evelina Gabasova},<br>
+  title   = {{Star Wars social network}},<br>
+  year    = 2016,<br>
+  url     = {https://doi.org/10.5281/zenodo.1411479},<br>
+  doi     = {10.5281/zenodo.1411479}<br>
+ }<br>
  
 In short, I have taken the files named 'starwars-episode-N-mentions'. These files contains data from episode N, where the links/edges between characters/nodes are defined by the times the characters are mentioned withing the same scene from the movie script.
 
