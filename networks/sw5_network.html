@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1>STAR WARS social network</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 100%;
+            background-color: #272929;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#3881e5", "font": {"color": "white", "size": 50}, "id": "LUKE", "label": "LUKE", "shape": "dot", "size": 10, "title": "Name: LUKE\nApperances: 83", "value": 583}, {"color": "#ff9400", "font": {"color": "white", "size": 50}, "id": "HAN", "label": "HAN", "shape": "dot", "size": 10, "title": "Name: HAN\nApperances: 66", "value": 566}, {"font": {"color": "white", "size": 20}, "id": "SNAP", "label": "SNAP", "shape": "dot", "size": 10, "title": "Name: SNAP\nApperances: 2", "value": 2}, {"color": "#FFD700", "font": {"color": "white", "size": 50}, "id": "C-3PO", "label": "C-3PO", "shape": "dot", "size": 10, "title": "Name: C-3PO\nApperances: 54", "value": 554}, {"color": "#bde0f6", "font": {"color": "white", "size": 50}, "id": "R2-D2", "label": "R2-D2", "shape": "dot", "size": 10, "title": "Name: R2-D2\nApperances: 35", "value": 535}, {"color": "#A0522D", "font": {"color": "white", "size": 50}, "id": "CHEWBACCA", "label": "CHEWBACCA", "shape": "dot", "size": 10, "title": "Name: CHEWBACCA\nApperances: 60", "value": 560}, {"color": "#DCDCDC", "font": {"color": "white", "size": 50}, "id": "LEIA", "label": "LEIA", "shape": "dot", "size": 10, "title": "Name: LEIA\nApperances: 73", "value": 573}, {"font": {"color": "white", "size": 20}, "id": "DERLIN", "label": "DERLIN", "shape": "dot", "size": 10, "title": "Name: DERLIN\nApperances: 3", "value": 3}, {"color": "#48D1CC", "font": {"color": "white", "size": 50}, "id": "OBI-WAN", "label": "OBI-WAN", "shape": "dot", "size": 10, "title": "Name: OBI-WAN\nApperances: 11", "value": 511}, {"color": "#9ACD32", "font": {"color": "white", "size": 50}, "id": "YODA", "label": "YODA", "shape": "dot", "size": 10, "title": "Name: YODA\nApperances: 9", "value": 509}, {"font": {"color": "white", "size": 20}, "id": "RIEEKAN", "label": "RIEEKAN", "shape": "dot", "size": 10, "title": "Name: RIEEKAN\nApperances: 8", "value": 8}, {"font": {"color": "white", "size": 20}, "id": "DACK", "label": "DACK", "shape": "dot", "size": 10, "title": "Name: DACK\nApperances: 5", "value": 5}, {"font": {"color": "white", "size": 20}, "id": "WEDGE", "label": "WEDGE", "shape": "dot", "size": 10, "title": "Name: WEDGE\nApperances: 10", "value": 10}, {"font": {"color": "white", "size": 20}, "id": "ZEV", "label": "ZEV", "shape": "dot", "size": 10, "title": "Name: ZEV\nApperances: 8", "value": 8}, {"color": "#000000", "font": {"color": "white", "size": 50}, "id": "DARTH VADER", "label": "DARTH VADER", "shape": "dot", "size": 10, "title": "Name: DARTH VADER\nApperances: 43", "value": 543}, {"color": "#191970", "font": {"color": "white", "size": 50}, "id": "EMPEROR", "label": "EMPEROR", "shape": "dot", "size": 10, "title": "Name: EMPEROR\nApperances: 7", "value": 507}, {"font": {"color": "white", "size": 20}, "id": "LANDO", "label": "LANDO", "shape": "dot", "size": 10, "title": "Name: LANDO\nApperances: 39", "value": 39}, {"font": {"color": "white", "size": 20}, "id": "BOBA FETT", "label": "BOBA FETT", "shape": "dot", "size": 10, "title": "Name: BOBA FETT\nApperances: 10", "value": 10}, {"font": {"color": "white", "size": 20}, "id": "JABBA", "label": "JABBA", "shape": "dot", "size": 10, "title": "Name: JABBA\nApperances: 4", "value": 4}, {"font": {"color": "white", "size": 20}, "id": "PIETT", "label": "PIETT", "shape": "dot", "size": 10, "title": "Name: PIETT\nApperances: 10", "value": 10}, {"font": {"color": "white", "size": 20}, "id": "OZZEL", "label": "OZZEL", "shape": "dot", "size": 10, "title": "Name: OZZEL\nApperances: 3", "value": 3}, {"font": {"color": "white", "size": 20}, "id": "NEEDA", "label": "NEEDA", "shape": "dot", "size": 10, "title": "Name: NEEDA\nApperances: 5", "value": 5}, {"font": {"color": "white", "size": 20}, "id": "JANSON", "label": "JANSON", "shape": "dot", "size": 10, "title": "Name: JANSON\nApperances: 5", "value": 5}]);
+        edges = new vis.DataSet([{"color": "#5689CE", "from": "LUKE", "label": 1, "to": "HAN", "value": 12, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "SNAP", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "C-3PO", "value": 11, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "R2-D2", "value": 21, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "CHEWBACCA", "value": 14, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "LEIA", "value": 18, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "DERLIN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "OBI-WAN", "value": 10, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "YODA", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "RIEEKAN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "DACK", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "WEDGE", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "ZEV", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "DARTH VADER", "value": 15, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "EMPEROR", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "LANDO", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "BOBA FETT", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "JABBA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "SNAP", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "CHEWBACCA", "value": 40, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "LEIA", "value": 48, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "JABBA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "RIEEKAN", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "C-3PO", "value": 35, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "R2-D2", "value": 9, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "OBI-WAN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "YODA", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "ZEV", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "LANDO", "value": 21, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "DARTH VADER", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "EMPEROR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "BOBA FETT", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "C-3PO", "value": 40, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "R2-D2", "value": 14, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "LEIA", "value": 47, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "DERLIN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "RIEEKAN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "LANDO", "value": 25, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "DARTH VADER", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "BOBA FETT", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "JABBA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "JABBA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "RIEEKAN", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "C-3PO", "value": 41, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "R2-D2", "value": 14, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "DERLIN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "LANDO", "value": 27, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "YODA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "OBI-WAN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "DARTH VADER", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "EMPEROR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "BOBA FETT", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "JABBA", "label": 1, "to": "RIEEKAN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "JABBA", "label": 1, "to": "BOBA FETT", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "JABBA", "label": 1, "to": "DARTH VADER", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "JABBA", "label": 1, "to": "LANDO", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "RIEEKAN", "label": 1, "to": "C-3PO", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "RIEEKAN", "label": 1, "to": "R2-D2", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "R2-D2", "value": 19, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "DERLIN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "LANDO", "value": 15, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "DARTH VADER", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "BOBA FETT", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "DERLIN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "WEDGE", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "YODA", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "OBI-WAN", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "DARTH VADER", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "EMPEROR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "BOBA FETT", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "LANDO", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "OBI-WAN", "label": 1, "to": "YODA", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "OBI-WAN", "label": 1, "to": "DARTH VADER", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "OBI-WAN", "label": 1, "to": "EMPEROR", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "YODA", "label": 1, "to": "DARTH VADER", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "YODA", "label": 1, "to": "EMPEROR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "DARTH VADER", "label": 1, "to": "PIETT", "value": 8, "weight": 1}, {"color": "#5689CE", "from": "DARTH VADER", "label": 1, "to": "OZZEL", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "DARTH VADER", "label": 1, "to": "EMPEROR", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "DARTH VADER", "label": 1, "to": "NEEDA", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "DARTH VADER", "label": 1, "to": "BOBA FETT", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "DARTH VADER", "label": 1, "to": "LANDO", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "PIETT", "label": 1, "to": "OZZEL", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "PIETT", "label": 1, "to": "EMPEROR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "PIETT", "label": 1, "to": "NEEDA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "PIETT", "label": 1, "to": "BOBA FETT", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "WEDGE", "label": 1, "to": "JANSON", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "EMPEROR", "label": 1, "to": "NEEDA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "EMPEROR", "label": 1, "to": "LANDO", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "BOBA FETT", "label": 1, "to": "LANDO", "value": 6, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>

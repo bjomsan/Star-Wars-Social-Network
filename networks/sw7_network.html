@@ -1,0 +1,117 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vis-network@latest/styles/vis-network.css" type="text/css" />
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/vis-network@latest/dist/vis-network.min.js"> </script>
+<center>
+<h1>STAR WARS social network</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 100%;
+            background-color: #272929;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"color": "#3881e5", "font": {"color": "white", "size": 50}, "id": "LUKE", "label": "LUKE", "shape": "dot", "size": 10, "title": "Name: LUKE\nApperances: 17", "value": 517}, {"color": "#DCDCDC", "font": {"color": "white", "size": 50}, "id": "LEIA", "label": "LEIA", "shape": "dot", "size": 10, "title": "Name: LEIA\nApperances: 18", "value": 518}, {"color": "#07b19f", "font": {"color": "white", "size": 50}, "id": "FINN", "label": "FINN", "shape": "dot", "size": 10, "title": "Name: FINN\nApperances: 91", "value": 591}, {"color": "#a15bea", "font": {"color": "white", "size": 50}, "id": "POE", "label": "POE", "shape": "dot", "size": 10, "title": "Name: POE\nApperances: 46", "value": 546}, {"font": {"color": "white", "size": 20}, "id": "UNKAR PLUTT", "label": "UNKAR PLUTT", "shape": "dot", "size": 10, "title": "Name: UNKAR PLUTT\nApperances: 9", "value": 9}, {"color": "#ffe0af", "font": {"color": "white", "size": 50}, "id": "REY", "label": "REY", "shape": "dot", "size": 10, "title": "Name: REY\nApperances: 103", "value": 603}, {"color": "#eb5d00", "font": {"color": "white", "size": 50}, "id": "BB-8", "label": "BB-8", "shape": "dot", "size": 10, "title": "Name: BB-8\nApperances: 59", "value": 559}, {"color": "#A0522D", "font": {"color": "white", "size": 50}, "id": "CHEWBACCA", "label": "CHEWBACCA", "shape": "dot", "size": 10, "title": "Name: CHEWBACCA\nApperances: 56", "value": 556}, {"color": "#ff9400", "font": {"color": "white", "size": 50}, "id": "HAN", "label": "HAN", "shape": "dot", "size": 10, "title": "Name: HAN\nApperances: 60", "value": 560}, {"color": "#bde0f6", "font": {"color": "white", "size": 50}, "id": "R2-D2", "label": "R2-D2", "shape": "dot", "size": 10, "title": "Name: R2-D2\nApperances: 6", "value": 506}, {"color": "#000000", "font": {"color": "white", "size": 50}, "id": "KYLO REN", "label": "KYLO REN", "shape": "dot", "size": 10, "title": "Name: KYLO REN\nApperances: 32", "value": 532}, {"font": {"color": "white", "size": 20}, "id": "MAZ", "label": "MAZ", "shape": "dot", "size": 10, "title": "Name: MAZ\nApperances: 9", "value": 9}, {"color": "#FFD700", "font": {"color": "white", "size": 50}, "id": "C-3PO", "label": "C-3PO", "shape": "dot", "size": 10, "title": "Name: C-3PO\nApperances: 11", "value": 511}, {"color": "#000000", "font": {"color": "white", "size": 50}, "id": "DARTH VADER", "label": "DARTH VADER", "shape": "dot", "size": 10, "title": "Name: DARTH VADER\nApperances: 4", "value": 504}, {"color": "#191970", "font": {"color": "white", "size": 50}, "id": "SNOKE", "label": "SNOKE", "shape": "dot", "size": 10, "title": "Name: SNOKE\nApperances: 10", "value": 510}, {"font": {"color": "white", "size": 20}, "id": "GENERAL HUX", "label": "GENERAL HUX", "shape": "dot", "size": 10, "title": "Name: GENERAL HUX\nApperances: 16", "value": 16}, {"font": {"color": "white", "size": 20}, "id": "LOR SAN TEKKA", "label": "LOR SAN TEKKA", "shape": "dot", "size": 10, "title": "Name: LOR SAN TEKKA\nApperances: 6", "value": 6}, {"font": {"color": "white", "size": 20}, "id": "ADMIRAL ACKBAR", "label": "ADMIRAL ACKBAR", "shape": "dot", "size": 10, "title": "Name: ADMIRAL ACKBAR\nApperances: 5", "value": 5}, {"font": {"color": "white", "size": 20}, "id": "SNAP", "label": "SNAP", "shape": "dot", "size": 10, "title": "Name: SNAP\nApperances: 8", "value": 8}, {"font": {"color": "white", "size": 20}, "id": "ADMIRAL STATURA", "label": "ADMIRAL STATURA", "shape": "dot", "size": 10, "title": "Name: ADMIRAL STATURA\nApperances: 3", "value": 3}, {"font": {"color": "white", "size": 20}, "id": "BALA-TIK", "label": "BALA-TIK", "shape": "dot", "size": 10, "title": "Name: BALA-TIK\nApperances: 4", "value": 4}, {"font": {"color": "white", "size": 20}, "id": "CAPTAIN PHASMA", "label": "CAPTAIN PHASMA", "shape": "dot", "size": 10, "title": "Name: CAPTAIN PHASMA\nApperances: 6", "value": 6}, {"font": {"color": "white", "size": 20}, "id": "JESS", "label": "JESS", "shape": "dot", "size": 10, "title": "Name: JESS\nApperances: 6", "value": 6}, {"font": {"color": "white", "size": 20}, "id": "ELLO ASTY", "label": "ELLO ASTY", "shape": "dot", "size": 10, "title": "Name: ELLO ASTY\nApperances: 4", "value": 4}, {"font": {"color": "white", "size": 20}, "id": "NIV LEK", "label": "NIV LEK", "shape": "dot", "size": 10, "title": "Name: NIV LEK\nApperances: 3", "value": 3}, {"font": {"color": "white", "size": 20}, "id": "YOLO ZIFF", "label": "YOLO ZIFF", "shape": "dot", "size": 10, "title": "Name: YOLO ZIFF\nApperances: 3", "value": 3}, {"font": {"color": "white", "size": 20}, "id": "LIEUTENANT MITAKA", "label": "LIEUTENANT MITAKA", "shape": "dot", "size": 10, "title": "Name: LIEUTENANT MITAKA\nApperances: 3", "value": 3}, {"font": {"color": "white", "size": 20}, "id": "COLONEL DATOO", "label": "COLONEL DATOO", "shape": "dot", "size": 10, "title": "Name: COLONEL DATOO\nApperances: 3", "value": 3}]);
+        edges = new vis.DataSet([{"color": "#5689CE", "from": "LUKE", "label": 1, "to": "LEIA", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "FINN", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "POE", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "UNKAR PLUTT", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "REY", "value": 9, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "BB-8", "value": 9, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "CHEWBACCA", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "HAN", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "R2-D2", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "KYLO REN", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "MAZ", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "C-3PO", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "DARTH VADER", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "SNOKE", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "GENERAL HUX", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LUKE", "label": 1, "to": "LOR SAN TEKKA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "FINN", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "REY", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "HAN", "value": 9, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "MAZ", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "BB-8", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "C-3PO", "value": 8, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "CHEWBACCA", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "ADMIRAL ACKBAR", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "POE", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "DARTH VADER", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "SNOKE", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "SNAP", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "ADMIRAL STATURA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "KYLO REN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "R2-D2", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LEIA", "label": 1, "to": "LOR SAN TEKKA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "POE", "value": 13, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "LOR SAN TEKKA", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "REY", "value": 37, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "UNKAR PLUTT", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "FINN", "value": 26, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "CHEWBACCA", "value": 16, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "HAN", "value": 18, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "BALA-TIK", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "MAZ", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "R2-D2", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "KYLO REN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "C-3PO", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "BB-8", "label": 1, "to": "SNAP", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "LOR SAN TEKKA", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "KYLO REN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "CAPTAIN PHASMA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "FINN", "value": 16, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "UNKAR PLUTT", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "REY", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "CHEWBACCA", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "HAN", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "SNAP", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "JESS", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "ADMIRAL ACKBAR", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "C-3PO", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "ADMIRAL STATURA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "ELLO ASTY", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "NIV LEK", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "YOLO ZIFF", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "POE", "label": 1, "to": "R2-D2", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LOR SAN TEKKA", "label": 1, "to": "KYLO REN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LOR SAN TEKKA", "label": 1, "to": "CAPTAIN PHASMA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LOR SAN TEKKA", "label": 1, "to": "C-3PO", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LOR SAN TEKKA", "label": 1, "to": "R2-D2", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "LOR SAN TEKKA", "label": 1, "to": "REY", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "CAPTAIN PHASMA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "GENERAL HUX", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "LIEUTENANT MITAKA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "SNOKE", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "FINN", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "HAN", "value": 8, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "DARTH VADER", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "UNKAR PLUTT", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "R2-D2", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "REY", "value": 13, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "CHEWBACCA", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "KYLO REN", "label": 1, "to": "SNAP", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "CAPTAIN PHASMA", "label": 1, "to": "FINN", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "CAPTAIN PHASMA", "label": 1, "to": "GENERAL HUX", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "CAPTAIN PHASMA", "label": 1, "to": "CHEWBACCA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "CAPTAIN PHASMA", "label": 1, "to": "HAN", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "CAPTAIN PHASMA", "label": 1, "to": "REY", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "GENERAL HUX", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "UNKAR PLUTT", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "REY", "value": 54, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "LIEUTENANT MITAKA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "CHEWBACCA", "value": 35, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "HAN", "value": 35, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "BALA-TIK", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "MAZ", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "SNAP", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "JESS", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "ADMIRAL ACKBAR", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "C-3PO", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "ADMIRAL STATURA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "FINN", "label": 1, "to": "SNOKE", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "UNKAR PLUTT", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "CHEWBACCA", "value": 32, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "HAN", "value": 31, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "BALA-TIK", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "MAZ", "value": 6, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "R2-D2", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "DARTH VADER", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "SNOKE", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "REY", "label": 1, "to": "C-3PO", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "UNKAR PLUTT", "label": 1, "to": "CHEWBACCA", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "UNKAR PLUTT", "label": 1, "to": "HAN", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "UNKAR PLUTT", "label": 1, "to": "R2-D2", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "GENERAL HUX", "label": 1, "to": "LIEUTENANT MITAKA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "GENERAL HUX", "label": 1, "to": "SNOKE", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "GENERAL HUX", "label": 1, "to": "HAN", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "GENERAL HUX", "label": 1, "to": "COLONEL DATOO", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "SNOKE", "label": 1, "to": "HAN", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "SNOKE", "label": 1, "to": "DARTH VADER", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "SNOKE", "label": 1, "to": "CHEWBACCA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "HAN", "value": 41, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "BALA-TIK", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "MAZ", "value": 5, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "SNAP", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "JESS", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "C-3PO", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "CHEWBACCA", "label": 1, "to": "R2-D2", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "BALA-TIK", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "MAZ", "value": 7, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "SNAP", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "JESS", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "C-3PO", "value": 4, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "ADMIRAL ACKBAR", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "DARTH VADER", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "HAN", "label": 1, "to": "ADMIRAL STATURA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "MAZ", "label": 1, "to": "C-3PO", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "R2-D2", "label": 1, "to": "C-3PO", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "SNAP", "label": 1, "to": "JESS", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "SNAP", "label": 1, "to": "ADMIRAL ACKBAR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "SNAP", "label": 1, "to": "C-3PO", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "SNAP", "label": 1, "to": "ADMIRAL STATURA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "JESS", "label": 1, "to": "ELLO ASTY", "value": 3, "weight": 1}, {"color": "#5689CE", "from": "JESS", "label": 1, "to": "NIV LEK", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "JESS", "label": 1, "to": "YOLO ZIFF", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "ADMIRAL ACKBAR", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "C-3PO", "label": 1, "to": "ADMIRAL STATURA", "value": 2, "weight": 1}, {"color": "#5689CE", "from": "ADMIRAL ACKBAR", "label": 1, "to": "ADMIRAL STATURA", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "YOLO ZIFF", "label": 1, "to": "ELLO ASTY", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "YOLO ZIFF", "label": 1, "to": "NIV LEK", "value": 1, "weight": 1}, {"color": "#5689CE", "from": "ELLO ASTY", "label": 1, "to": "NIV LEK", "value": 2, "weight": 1}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": true,
+            "type": "dynamic"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "forceAtlas2Based": {
+            "avoidOverlap": 0,
+            "centralGravity": 0.01,
+            "damping": 0.4,
+            "gravitationalConstant": -50,
+            "springConstant": 0.08,
+            "springLength": 100
+        },
+        "solver": "forceAtlas2Based",
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
